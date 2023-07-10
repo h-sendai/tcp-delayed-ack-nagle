@@ -24,6 +24,7 @@ int usage()
                  "options:\n"
                  "-c CPU_NUM      running cpu num (default: none)\n"
                  "-p PORT         port number (default: 1234)\n"
+                 "-n n_data       number of data (each 20 bytes) from server.  (default: 2)\n"
                  "-h              display this help\n";
 
     fprintf(stderr, "%s", msg);
@@ -39,8 +40,9 @@ int main(int argc, char *argv[])
     int sleep_usec = 1000000;
     int cpu_num = -1;
     int sockfd;
+    int n_data = 2;
 
-    while ( (c = getopt(argc, argv, "c:hp:s:")) != -1) {
+    while ( (c = getopt(argc, argv, "c:hn:p:s:")) != -1) {
         switch (c) {
             case 'c':
                 cpu_num = strtol(optarg, NULL, 0);
@@ -48,6 +50,9 @@ int main(int argc, char *argv[])
             case 'h':
                 usage();
                 exit(0);
+                break;
+            case 'n':
+                n_data = strtol(optarg, NULL, 0);
                 break;
             case 'p':
                 port = strtol(optarg, NULL, 0);
@@ -98,7 +103,7 @@ int main(int argc, char *argv[])
         }
         fprintfwt(stderr, "client: write done: return: %d\n", n);
 
-        for (int i = 0; i < 2; ++i) {
+        for (int i = 0; i < n_data; ++i) {
             fprintfwt(stderr, "client: readn #%d bytes start\n", i, READ_BUFSIZE);
 
             n = readn(sockfd, read_buf, READ_BUFSIZE);
