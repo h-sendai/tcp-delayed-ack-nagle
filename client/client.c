@@ -104,7 +104,7 @@ int main(int argc, char *argv[])
         fprintfwt(stderr, "client: write done: return: %d\n", n);
 
         for (int i = 0; i < n_data; ++i) {
-            fprintfwt(stderr, "client: readn #%d bytes start\n", i, READ_BUFSIZE);
+            fprintfwt(stderr, "client: readn #%d %d bytes start\n", i, READ_BUFSIZE);
 
             n = readn(sockfd, read_buf, READ_BUFSIZE);
             if (n < 0) {

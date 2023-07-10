@@ -59,7 +59,7 @@ int child_proc(int connfd, int run_cpu, int use_no_delay, int n_data)
         fprintfwt(stderr, "server: read %d bytes done\n", n);
 
         for (int i = 0; i < n_data; ++i) {
-            fprintfwt(stderr, "server: write #d start\n", i);
+            fprintfwt(stderr, "server: write #%d start\n", i);
             n = write(connfd, write_buf, WRITE_BUFSIZE);
             if (n < 0) {
                 if (errno == ECONNRESET) {
